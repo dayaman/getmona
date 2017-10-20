@@ -20,7 +20,7 @@ api = twython.Twython(app_key=API_KEY,
                       oauth_token=TOC,
                       oauth_token_secret=TOC_KEY)
 now = dt.now()
-api.update_status(status="現在のMONACOINの価格 : "
+api.update_status(status="現在のMonacoinの価格 : "
                   +str(crypts["last_price"])
                   +" 円\n"
                   +now.strftime('(%H:%M現在)'))
