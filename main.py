@@ -17,15 +17,32 @@ api = twython.Twython(app_key=API_KEY,
                       oauth_token=TOC,
                       oauth_token_secret=TOC_KEY)
 now = dt.now()
+with open("yesterday.txt", "r")as yes:
+    yesmona = float(yes.read())
+
+nowmona = crypts["last_price"]
+
+wari = nowmona / yesmona
+if wari >= 1:
+    prm = '+'
+else:
+    prm = '-'
+    wari = 1 - wari
+    
 api.update_status(status="Monacoinの価格 : "
-                  +str(crypts["last_price"])
+                  +str(nowmona)
                   +" 円\n"
+                  +"昨日比 : "
+                  +prm
+                  +str(wari*100)
+                  +"%"
                   +now.strftime('(%H:%M現在)'))
 
 with open("kakaku.txt", "w")as file:
-    file.write(str(crypts["last_price"])
+    file.write(str(nowmona)
                +"\n"
                +now.strftime('%H:%M'))
 
 with open("updw.txt", "w")as pya:
     pya.write("1")
+
