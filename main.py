@@ -34,7 +34,7 @@ api.update_status(status="Monacoinの価格 : "
                   +" 円\n"
                   +"昨日比 : "
                   +prm
-                  +str(wari*100)
+                  +str(int(wari*100))
                   +"%"
                   +now.strftime('(%H:%M現在)'))
 
@@ -46,3 +46,7 @@ with open("kakaku.txt", "w")as file:
 with open("updw.txt", "w")as pya:
     pya.write("1")
 
+time = now.strtime('%H:%M')
+if time == '00:00':
+    with open("yesterday.txt", "w")as chan:
+        chan.write(str(nowmona))
