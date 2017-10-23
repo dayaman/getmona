@@ -16,7 +16,7 @@ api = twython.Twython(app_key=API_KEY,
                       oauth_token_secret=TOC_KEY)
 
 def judge(num):
-    if num >= 0.1:
+    if num >= 0.05:
         return True
     else:
         return False
@@ -53,7 +53,8 @@ def main():
                           +str(int((wari-1)*100))
                           +"%")
         with open("updw.txt", "w")as pya:
-            pya.write(str(wari))
+            
+            pya.write("%.1f" % wari)
 
 if __name__ == '__main__':
     main()
