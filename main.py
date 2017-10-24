@@ -25,6 +25,7 @@ nowmona = crypts["last_price"]
 wari = nowmona / yesmona
 if wari >= 1:
     prm = '+'
+    wari -= 1
 else:
     prm = '-'
     wari = 1 - wari
