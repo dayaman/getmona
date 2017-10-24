@@ -47,7 +47,7 @@ with open("kakaku.txt", "w")as file:
 with open("updw.txt", "w")as pya:
     pya.write("1")
 
-time = now.strtime('%H:%M')
+time = now.strftime('%H:%M')
 if time == '00:00':
     with open("yesterday.txt", "w")as chan:
         chan.write(str(nowmona))
