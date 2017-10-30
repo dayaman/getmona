@@ -17,6 +17,12 @@ api = twython.Twython(app_key=API_KEY,
                       oauth_token=TOC,
                       oauth_token_secret=TOC_KEY)
 now = dt.now()
+
+time = now.strftime('%H:%M')
+if time == '00:00':
+    with open("yesterday.txt", "w")as chan:
+        chan.write(str(nowmona))
+
 with open("yesterday.txt", "r")as yes:
     yesmona = float(yes.read())
 
@@ -47,7 +53,3 @@ with open("kakaku.txt", "w")as file:
 with open("updw.txt", "w")as pya:
     pya.write("1")
 
-time = now.strftime('%H:%M')
-if time == '00:00':
-    with open("yesterday.txt", "w")as chan:
-        chan.write(str(nowmona))

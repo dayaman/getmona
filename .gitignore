@@ -1,8 +1,6 @@
 .DS_Store
 twi.api
-kakaku.txt
 test.py
-updw.txt
-kakaku.txt~
-#main.py#
+*~
+\#*#
 *.txt
