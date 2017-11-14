@@ -34,23 +34,36 @@ def judge(money,num):
     if money == "jpy":
         if lastwari_jpy >= 0 and num < 0:
             return True
-        elif lastwari_jpy < 0 and num >= 0:
+        elif lastwari_jpy < 0 and num > 0:
             return True
         
-        if abs(num - lastwari_jpy) > 1:
-            return True
+        if lastwari_jpy >= 0 and num >= 0:
+            if num - lastwari_jpy >= 1:
+                return True
+            else:
+                return False
         else:
-            return False
+            if num - lastwari_jpy <= -1:
+                return True
+            else:
+                return False
     else:
         if lastwari_btc >= 0 and num < 0:
             return True
-        elif lastwari_btc < 0 and num >= 0:
+        elif lastwari_btc < 0 and num > 0:
             return True
-        
-        if abs(num - lastwari_btc) >= 1:
-            return True
+
+        if lastwari_btc >= 0 and num >= 0:
+            if num - lastwari_btc >= 1:
+                return True
+            else:
+                return False
         else:
-            return False
+            if num - lastwari_btc <= -1:
+                return True
+            else:
+                return False
+        
 
 def get_price(money):
     if money == "jpy":
@@ -85,11 +98,18 @@ def tweet(money,price,per):
                               +"\n"
                               +"昨日比:"
                               +"%+d%%" % per
+                              +"("+nowtime+"現在)"
                               )
 
 def main():
     while nowtime != '00:00':
 
+        #ここから
+        with open("yesterday.txt", "r")as yes:
+            yesmona_jpy = float(yes.readline().strip())
+            yesmona_btc = float(yes.readline().strip())
+        #ここまでテスト用
+        
         global lastwari_jpy
         global lastwari_btc
         
