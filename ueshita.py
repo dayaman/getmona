@@ -90,11 +90,6 @@ def tweet(money,price,per):
 def main():
     while nowtime != '00:00':
 
-        #ここから
-        with open("yesterday.txt", "r")as yes:
-            yesmona_jpy = float(yes.readline().strip())
-            yesmona_btc = float(yes.readline().strip())
-        #ここまでテスト用
         global lastwari_jpy
         global lastwari_btc
         
