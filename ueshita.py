@@ -103,13 +103,11 @@ def main():
         jd_jpy = judge("jpy", per_jpy)
         jd_btc = judge("btc", per_btc)
 
-        print(lastwari_jpy)
         
         if jd_jpy == True:
             tweet("jpy", mona_jpy, per_jpy)
             lastwari_jpy = per_jpy
-            time.sleep(1)
-        
+                
         if jd_btc == True:
             tweet("btc", mona_btc, per_btc)
             lastwari_btc = per_btc
