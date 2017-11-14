@@ -20,10 +20,6 @@ api = twython.Twython(app_key=API_KEY,
                       oauth_token=TOC,
                       oauth_token_secret=TOC_KEY)
 
-with open("yesterday.txt", "r")as yes:
-    yesmona_jpy = float(yes.readline().strip())
-    yesmona_btc = float(yes.readline().strip())
-
 lastwari_jpy = 0
 lastwari_btc = 0
 
@@ -110,11 +106,11 @@ def main():
         now = dt.now()
         nowtime = now.strftime('%H:%M')
         
-        #ここから
+        
         with open("yesterday.txt", "r")as yes:
             yesmona_jpy = float(yes.readline().strip())
             yesmona_btc = float(yes.readline().strip())
-        #ここまでテスト用
+        
         if nowtime == "00:00":
             lastwari_jpy = 0
             lastwari_btc = 0
@@ -123,8 +119,8 @@ def main():
         mona_btc = float(get_price("btc"))
         wari_jpy = mona_jpy / yesmona_jpy
         wari_btc = mona_btc / yesmona_btc
-        per_jpy = (wari_jpy - 1) * 100 // 5
-        per_btc = (wari_btc - 1) * 100 // 5
+        per_jpy = int((wari_jpy - 1) * 100) // 5
+        per_btc = int((wari_btc - 1) * 100) // 5
                     
         jd_jpy = judge("jpy", per_jpy)
         jd_btc = judge("btc", per_btc)
