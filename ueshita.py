@@ -24,11 +24,10 @@ with open("yesterday.txt", "r")as yes:
     yesmona_jpy = float(yes.readline().strip())
     yesmona_btc = float(yes.readline().strip())
 
-now = dt.now()
-nowtime = now.strftime('%H:%M')
-
 lastwari_jpy = 0
 lastwari_btc = 0
+
+nowtime = ""
 
 def judge(money,num):
     if money == "jpy":
@@ -106,6 +105,10 @@ def main():
 
         global lastwari_jpy
         global lastwari_btc
+        global nowtime
+        
+        now = dt.now()
+        nowtime = now.strftime('%H:%M')
         
         #ここから
         with open("yesterday.txt", "r")as yes:
