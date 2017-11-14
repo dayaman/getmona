@@ -47,7 +47,7 @@ def judge(money,num):
         elif lastwari_btc < 0 and num >= 0:
             return True
         
-        if abs(num - lastwari_btc) > 1:
+        if abs(num - lastwari_btc) >= 1:
             return True
         else:
             return False
