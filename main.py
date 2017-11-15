@@ -41,7 +41,7 @@ if wari >= 1:
     wari -= 1
 else:
     prm = '-'
-    wari = 1 - wari
+    wari = int(1 - wari)
 
 wari_btc = nowmona_btc / yesmona_btc
 if wari_btc >= 1:
@@ -49,27 +49,17 @@ if wari_btc >= 1:
     wari_btc -= 1
 else:
     prm_btc = '-'
-    wari_btc = 1 - wari_btc
+    wari_btc = int(1 - wari_btc)
 
 api.update_status(status="Monacoinの価格\n"
                   +str(nowmona)
                   +"円(昨日比:"
                   +prm
-                  +str(int(wari*100))
+                  +str(wari*100)
                   +"%)\n"
                   +str(nowmona_btc)
                   +"BTC(昨日比:"
                   +prm_btc
-                  +str(int(wari_btc*100))
+                  +str(wari_btc*100)
                   +"%)\n"
                   +now.strftime('(%H:%M現在)'))
-
-with open("kakaku.txt", "w")as file:
-    file.write(str(nowmona)
-               +"\n"
-               +str(nowmona_btc)
-               +"\n"
-               +now.strftime('%H:%M'))
-
-with open("updw.txt", "w")as pya:
-    pya.write("1")
