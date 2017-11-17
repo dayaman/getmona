@@ -84,7 +84,8 @@ def tweet(money,price,per):
         kouk = "下降中"
 
     per *= 5
-    api.update_status(status="mona_"
+    try:
+        api.update_status(status="mona_"
                               +money
                               +kouk
                               +"\n現在 "
@@ -95,6 +96,8 @@ def tweet(money,price,per):
                               +"%+d%%" % per
                               +"("+nowtime+"現在)"
                               )
+    except:
+        pass
 
 def main():
     while True:
