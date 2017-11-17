@@ -59,7 +59,7 @@ def main():
     #myStream.filter(track=['@kakaku_monatest'])
     while True:
         try:
-            myStream.filter(track=['@kakaku_monatest'])
+            myStream.filter(track=['@kakaku_mona'])
         except:
             pass
         
