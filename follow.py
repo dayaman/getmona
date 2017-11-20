@@ -17,7 +17,7 @@ def main():
         try:
             api.create_friendship(user_id)
         except:
-
+            pass
 
 if __name__=='__main__':
     main()
