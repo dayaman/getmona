@@ -58,11 +58,11 @@ def judge(money,num):
 
 def get_price(money):
     if money == "jpy":
-        ws = ws_jpy
         ws_jpy = create_connection("wss://ws.zaif.jp:8888/stream?currency_pair=mona_jpy")
+        ws = ws_jpy
     else:
-        ws = ws_btc
         ws_btc = create_connection("wss://ws.zaif.jp:8888/stream?currency_pair=mona_btc")
+        ws = ws_btc
     
     result = ws.recv()
     status = json.loads(result)
@@ -137,7 +137,6 @@ def main():
             tweet("btc", mona_btc, per_btc)
             lastwari_btc = per_btc
             
-        time.sleep(5)
     ws_jpy.close()
     ws_btc.close()
 if __name__ == '__main__':

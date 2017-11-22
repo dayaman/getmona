@@ -24,11 +24,12 @@ mona_btc = 0
 
 def get(money):
     if money == "jpy":
-        ws = ws_jpy
         ws_jpy = web.create_connection("wss://ws.zaif.jp:8888/stream?currency_pair=mona_jpy")
+        ws = ws_jpy
+
     else:
-        ws = ws_btc
         ws_btc = web.create_connection("wss://ws.zaif.jp:8888/stream?currency_pair=mona_btc")
+        ws = ws_btc
 
     result = ws.recv()
     status = json.loads(result)
@@ -39,7 +40,7 @@ def get(money):
 
 class Listener(tweepy.StreamListener):
     def on_status(self, status):
-        #print(status.text)
+        print(status.text)
         status_id = status.id
         now = dt.now()
         #print(now)
@@ -55,7 +56,7 @@ class Listener(tweepy.StreamListener):
 def main():
     myStreamListener = Listener()
     myStream = tweepy.Stream(auth = api.auth, listener =Listener())
-    #myStream.filter(track=['@kakaku_monatest'])
+    #myStream.filter(track=['@kakaku_mona'])
     while True:
         try:
             myStream.filter(track=['@kakaku_mona'])
