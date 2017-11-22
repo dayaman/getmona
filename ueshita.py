@@ -65,7 +65,7 @@ def get_price(money):
         ws = ws_jpy
     else:
         ws = ws_btc
-
+    
     result = ws.recv()
     status = json.loads(result)
     price_status = status["last_price"]
@@ -96,6 +96,7 @@ def tweet(money,price,per):
                               +"%+d%%" % per
                               +"("+nowtime+"現在)"
                               )
+    
     except:
         pass
 
