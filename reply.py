@@ -3,10 +3,6 @@ import websocket as web
 from datetime import datetime as dt
 import tweepy
 
-ws_jpy = web.create_connection("wss://ws.zaif.jp:8888/stream?currency_pair=mona_jpy")
-ws_btc = web.create_connection("wss://ws.zaif.jp:8888/stream?currency_pair=mona_btc")
-
-
 with open("twi.api", "r")as ap:
     API_KEY = ap.readline().strip()
     API_SEC = ap.readline().strip()
@@ -29,13 +25,16 @@ mona_btc = 0
 def get(money):
     if money == "jpy":
         ws = ws_jpy
+        ws_jpy = web.create_connection("wss://ws.zaif.jp:8888/stream?currency_pair=mona_jpy")
     else:
         ws = ws_btc
+        ws_btc = web.create_connection("wss://ws.zaif.jp:8888/stream?currency_pair=mona_btc")
 
     result = ws.recv()
     status = json.loads(result)
     price_status = status["last_price"]
     price = price_status["price"]
+    ws.close()
     return price
 
 class Listener(tweepy.StreamListener):
