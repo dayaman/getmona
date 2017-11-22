@@ -5,10 +5,6 @@ from websocket import *
 import time
 from datetime import datetime as dt
 
-ws_jpy = create_connection("wss://ws.zaif.jp:8888/stream?currency_pair=mona_jpy")
-ws_btc = create_connection("wss://ws.zaif.jp:8888/stream?currency_pair=mona_btc")
-
-
 with open("twi.api", "r")as ap:
     API_KEY = ap.readline().strip()
     API_SEC = ap.readline().strip()
@@ -62,14 +58,17 @@ def judge(money,num):
 
 def get_price(money):
     if money == "jpy":
+        ws_jpy = create_connection("wss://ws.zaif.jp:8888/stream?currency_pair=mona_jpy")
         ws = ws_jpy
     else:
+        ws_btc = create_connection("wss://ws.zaif.jp:8888/stream?currency_pair=mona_btc")
         ws = ws_btc
-
+    
     result = ws.recv()
     status = json.loads(result)
     price_status = status["last_price"]
     price = price_status["price"]
+    ws.close()
     return price
 
 def tweet(money,price,per):
@@ -96,6 +95,7 @@ def tweet(money,price,per):
                               +"%+d%%" % per
                               +"("+nowtime+"現在)"
                               )
+    
     except:
         pass
 
@@ -137,7 +137,6 @@ def main():
             tweet("btc", mona_btc, per_btc)
             lastwari_btc = per_btc
             
-        time.sleep(5)
     ws_jpy.close()
     ws_btc.close()
 if __name__ == '__main__':
