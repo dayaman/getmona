@@ -1,7 +1,7 @@
 import json
 import requests
 import twython
-from websocket import *
+#from websocket import *
 import time
 from datetime import datetime as dt
 
@@ -58,17 +58,23 @@ def judge(money,num):
 
 def get_price(money):
     if money == "jpy":
-        ws_jpy = create_connection("wss://ws.zaif.jp:8888/stream?currency_pair=mona_jpy")
-        ws = ws_jpy
+        #ws_jpy = create_connection("wss://ws.zaif.jp:8888/stream?currency_pair=mona_jpy")
+        #ws = ws_jpy
+        mona = requests.get('https://api.zaif.jp/api/1/last_price/mona_jpy')
+        
     else:
-        ws_btc = create_connection("wss://ws.zaif.jp:8888/stream?currency_pair=mona_btc")
-        ws = ws_btc
-    
+        #ws_btc = create_connection("wss://ws.zaif.jp:8888/stream?currency_pair=mona_btc")
+        #ws = ws_btc
+        mona = requests.get('https://api.zaif.jp/api/1/last_price/mona_btc')
+    """
     result = ws.recv()
     status = json.loads(result)
     price_status = status["last_price"]
     price = price_status["price"]
     ws.close()
+    """
+    crypts = mona.json()
+    price = crypts["last_price"]
     return price
 
 def tweet(money,price,per):
@@ -136,8 +142,9 @@ def main():
         if jd_btc == True:
             tweet("btc", mona_btc, per_btc)
             lastwari_btc = per_btc
-            
-    ws_jpy.close()
-    ws_btc.close()
+
+        time.sleep(5)
+    #ws_jpy.close()
+    #ws_btc.close()
 if __name__ == '__main__':
     main()

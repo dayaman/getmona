@@ -1,5 +1,6 @@
 import json
-import websocket as web
+#import websocket as web
+import requests
 from datetime import datetime as dt
 import tweepy
 
@@ -22,20 +23,25 @@ api = tweepy.API(auth)
 mona_jpy = 0
 mona_btc = 0
 
-def get(money):
+def get(money): #wssが不調なので、暫定処置
     if money == "jpy":
-        ws_jpy = web.create_connection("wss://ws.zaif.jp:8888/stream?currency_pair=mona_jpy")
-        ws = ws_jpy
+        #ws_jpy = web.create_connection("wss://ws.zaif.jp:8888/stream?currency_pair=mona_jpy")
+        #ws = ws_jpy
+        mona = requests.get('https://api.zaif.jp/api/1/last_price/mona_jpy')
 
     else:
-        ws_btc = web.create_connection("wss://ws.zaif.jp:8888/stream?currency_pair=mona_btc")
-        ws = ws_btc
+        #ws_btc = web.create_connection("wss://ws.zaif.jp:8888/stream?currency_pair=mona_btc")
+        #ws = ws_btc
+        mona = requests.get('https://api.zaif.jp/api/1/last_price/mona_btc')
 
+    crypts = mona.json()
+    price = crypts["last_price"]
+    """
     result = ws.recv()
     status = json.loads(result)
     price_status = status["last_price"]
     price = price_status["price"]
-    ws.close()
+    ws.close()"""
     return price
 
 class Listener(tweepy.StreamListener):
@@ -55,13 +61,16 @@ class Listener(tweepy.StreamListener):
     
 def main():
     myStreamListener = Listener()
-    myStream = tweepy.Stream(auth = api.auth, listener =Listener())
+    myStream = tweepy.Stream(auth = api.auth, listener = myStreamListener)
     #myStream.filter(track=['@kakaku_mona'])
+
+    #"""
     while True:
         try:
             myStream.filter(track=['@kakaku_mona'])
         except:
             pass
+    #""""
         
 if __name__=='__main__':
     main()
