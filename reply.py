@@ -54,8 +54,9 @@ class Listener(tweepy.StreamListener):
         #print(time)
         user_id = str(status.user.screen_name)
         #print(user_id)
-        twein = ("""@%s モナコインの価格は\n%.1f円\n%fBTC\nです。(%s現在)"""
-                 % ( user_id, get("jpy"), get("btc"), time))
+        if user_id != "kakaku_mona":
+            twein = ("""@%s モナコインの価格は\n%.1f円\n%fBTC\nです。(%s現在)"""
+                     % ( user_id, get("jpy"), get("btc"), time))
         #print(twein)
         api.update_status(status=twein, in_reply_to_status_id=status_id)
     
