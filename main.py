@@ -1,5 +1,6 @@
 import requests
-import twython
+#import twython
+import tweet
 from datetime import datetime as dt
 
 mona = requests.get('https://api.zaif.jp/api/1/last_price/mona_jpy')
@@ -8,16 +9,16 @@ monabtc = requests.get('https://api.zaif.jp/api/1/last_price/mona_btc')
 crypts = mona.json()
 crypts_btc = monabtc.json()
 
-with open("twi.api", "r")as ap:
-    API_KEY = ap.readline().strip()
-    API_SEC = ap.readline().strip()
-    TOC = ap.readline().strip()
-    TOC_KEY = ap.readline().strip()
+# with open("twi.api", "r")as ap:
+#     API_KEY = ap.readline().strip()
+#     API_SEC = ap.readline().strip()
+#     TOC = ap.readline().strip()
+#     TOC_KEY = ap.readline().strip()
 
-api = twython.Twython(app_key=API_KEY,
-                      app_secret=API_SEC,
-                      oauth_token=TOC,
-                      oauth_token_secret=TOC_KEY)
+# api = twython.Twython(app_key=API_KEY,
+#                       app_secret=API_SEC,
+#                       oauth_token=TOC,
+#                       oauth_token_secret=TOC_KEY)
 
 nowmona = crypts["last_price"]
 nowmona_btc = crypts_btc["last_price"]
@@ -51,15 +52,17 @@ else:
     prm_btc = '-'
     wari_btc = int((1 - wari_btc) * 100)
 
-api.update_status(status="Monacoinの価格\n"
-                  +str(nowmona)
-                  +"円(昨日比:"
-                  +prm
-                  +str(wari)
-                  +"%)\n"
-                  +str(nowmona_btc)
-                  +"BTC(昨日比:"
-                  +prm_btc
-                  +str(wari_btc)
-                  +"%)\n"
-                  +now.strftime('(%H:%M現在)'))
+
+#api.update_status(status="Monacoinの価格\n"
+tweet.tweet("Monacoinの価格\n"
+            +str(nowmona)
+            +"円(昨日比:"
+            +prm
+            +str(wari)
+            +"%)\n"
+            +str(nowmona_btc)
+            +"BTC(昨日比:"
+            +prm_btc
+            +str(wari_btc)
+            +"%)\n"
+            +now.strftime('(%H:%M現在)'))
