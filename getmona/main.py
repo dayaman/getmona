@@ -13,9 +13,8 @@ if time == '00:00':
                    '\n'+
                    str(nowmona_btc))
 
-with open("yesterday.txt", "r")as yes:
-    yesmona = float(yes.readline().strip())
-    yesmona_btc = float(yes.readline().strip())
+yesmona = float(yes.readline().strip())
+yesmona_btc = float(yes.readline().strip())
 
 wari = nowmona / yesmona
 if wari >= 1:

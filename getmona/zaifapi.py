@@ -1,5 +1,7 @@
 import threading
 from time import sleep
+from getmona import db
+from getmona.models import Price
 import json
 import websocket
 
@@ -23,9 +25,10 @@ def getprice(pair):
 def rec_price(rc):
     money=rc['last_price']['price']
     pair_name=rc['currency_pair']
-    f = open(pair_name+'.txt', 'w')
-    f.write(str(money))
-    f.close()
+    kakaku=Price.query.get(pair_name)
+    kakaku.latest_price=money
+    db.session.add(kakaku)
+    db.session.commit()
     
 def connws(pair):
     global price
