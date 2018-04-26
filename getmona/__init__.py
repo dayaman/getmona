@@ -5,4 +5,4 @@ app = Flask(__name__)
 app.config.from_object('getmona.config')
 db = SQLAlchemy(app)
 
-import getmona.views
+# import getmona.views
