@@ -7,7 +7,7 @@ import websocket
 
 price={}
 
-def main():
+def start_threading():
     thread_a=threading.Thread(target=getprice, args=('mona_jpy',))
     thread_a.start()
     getprice('mona_btc')

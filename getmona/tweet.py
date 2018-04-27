@@ -1,6 +1,6 @@
 import twython
 
-with open("twi.api", "r")as ap:
+with open("getmona/twi.api", "r")as ap:
         API_KEY = ap.readline().strip()
         API_SEC = ap.readline().strip()
         TOC = ap.readline().strip()

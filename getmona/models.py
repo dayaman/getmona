@@ -12,4 +12,3 @@ class Price(db.Model):
 
 def init():
     db.create_all()
-    
