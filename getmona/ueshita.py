@@ -24,4 +24,4 @@ def is_Tweet(per, mae):
         if per - mae >= 1:
             return True
     elif per < 0:
-        
+        pass
