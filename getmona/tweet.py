@@ -1,4 +1,5 @@
 import twython
+from getmona.make_reply import make_text
 
 with open("getmona/twi.api", "r")as ap:
         API_KEY = ap.readline().strip()
@@ -10,9 +11,28 @@ api = twython.Twython(app_key=API_KEY,
                       app_secret=API_SEC,
                       oauth_token=TOC,
                       oauth_token_secret=TOC_KEY)
-    
+
+class Listener(twython.TwythonStreamer):
+        def on_success(self, status):
+                status_id = status['id']
+                user_screen_name = status['user']['screen_name']
+                if user_screen_name != "kakaku_mona":
+                        text_rep  = make_text(status)
+                        reply(text_rep, status_id)
+
+def get_reply():
+        while True:
+                try:
+                        stream = Listener(API_KEY, API_SEC, TOC, TOC_KEY)
+                        stream.statuses.filter(track='@kakaku_mona')
+                except KeyboardInterrupt:
+                        exit(-1)
+        
 def tweet(saytw):
-    api.update_status(status=saytw)
+        api.update_status(status=saytw)
+
+def reply(saytw, id):
+        api.update_status(status=saytw, in_reply_to_status_id=id)
 
 def follow():
         search_results = api.search(q='モナコイン -RT', count=8)
