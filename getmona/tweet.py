@@ -29,7 +29,8 @@ def get_reply():
                         exit(-1)
         
 def tweet(saytw):
-        api.update_status(status=saytw)
+        http_stu = api.update_status(status=saytw)
+        return http_stu
 
 def reply(saytw, id):
         api.update_status(status=saytw, in_reply_to_status_id=id)
@@ -39,4 +40,5 @@ def follow():
         results = search_results['statuses']
         for result in results:
                 user_id = result['user']['screen_name']
-                api.create_friendship(screen_name=user_id)
+                if user_id != 'kakaku_mona':
+                        api.create_friendship(screen_name=user_id)

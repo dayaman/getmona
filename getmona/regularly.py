@@ -35,8 +35,33 @@ def tweet_regularly():
 
 def rec_yes(nmoney):
     nmoney.yesterday_price = nmoney.latest_price
+    db.session.add(nmoney)
+    db.session.commit()
 
 def wariai(now, yes):
     wari = now / yes
     per = int((wari - 1) * 100)
     return per
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
