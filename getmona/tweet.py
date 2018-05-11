@@ -19,7 +19,7 @@ class Listener(twython.TwythonStreamer):
                 user_screen_name = status['user']['screen_name']
                 if user_screen_name != "kakaku_mona":
                         text_rep  = make_text(status)
-                        reply(text_rep, status_id)
+                        tweet(text_rep, status_id)
 
 def get_reply():
         while True:
