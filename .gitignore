@@ -3,7 +3,6 @@ twi.*
 test.py
 *~
 \#*#
-*.txt
 __pycache__
 *.db
 config.py
