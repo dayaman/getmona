@@ -1,5 +1,6 @@
 import twython
 from getmona.make_reply import make_text
+from datetime import datetime
 
 with open("getmona/twi.api", "r")as ap:
         API_KEY = ap.readline().strip()
@@ -28,12 +29,14 @@ def get_reply():
                 except KeyboardInterrupt:
                         exit(-1)
         
-def tweet(saytw):
-        http_stu = api.update_status(status=saytw)
-        return http_stu
-
-def reply(saytw, id):
-        api.update_status(status=saytw, in_reply_to_status_id=id)
+def tweet(saytw, id=-1):
+        try:
+                if id == -1:
+                        api.update_status(status=saytw)
+                else:
+                        api.update_status(status=saytw, in_reply_to_status_id=id)   
+        except Exception as e:
+                write_log(e)
 
 def follow():
         search_results = api.search(q='モナコイン -RT', count=8)
@@ -41,4 +44,14 @@ def follow():
         for result in results:
                 user_id = result['user']['screen_name']
                 if user_id != 'kakaku_mona':
-                        api.create_friendship(screen_name=user_id)
+                        try:
+                                api.create_friendship(screen_name=user_id)
+                        except Exception as e:
+                                write_log(e)
+
+def write_log(errob):
+        logf = open('log/tweet.log', 'a')
+        dt_now = datetime.now()
+        str_dt = dt_now.strftime('%Y-%m-%d %H:%M:%S')
+        logf.write(str_dt+' '+str(errob)+'\n')
+        logf.close()
