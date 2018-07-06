@@ -1,5 +1,6 @@
 import threading
 from time import sleep
+from datetime import datetime
 from getmona import db
 from getmona.models import Price
 import json
@@ -37,7 +38,21 @@ def connws(pair):
         try:
             ws.send('payload')
             price[pair]=json.loads(ws.recv())
-        except:
-            ws=websocket.create_connection('wss://ws.zaif.jp:8888/stream?currency_pair='+pair)
+        except Exception as err1:
+            write_log(err1)
+            is_connect = False
+            while is_connect == False:
+                try:
+                    ws=websocket.create_connection('wss://ws.zaif.jp:8888/stream?currency_pair='+pair)
+                    is_connect = True
+                except Exception as err2:
+                    write_log(err2)
+            
         sleep(1)
         
+def write_log(errob):
+        logf = open('log/zaifapi.log', 'a')
+        dt_now = datetime.now()
+        str_dt = dt_now.strftime('%Y-%m-%d %H:%M:%S')
+        logf.write(str_dt+' '+str(errob)+'\n')
+        logf.close()
