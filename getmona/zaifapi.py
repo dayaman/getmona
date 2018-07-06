@@ -43,6 +43,7 @@ def connws(pair):
             is_connect = False
             while is_connect == False:
                 try:
+                    sleep(10)
                     ws=websocket.create_connection('wss://ws.zaif.jp:8888/stream?currency_pair='+pair)
                     is_connect = True
                 except Exception as err2:
