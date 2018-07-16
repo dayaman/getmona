@@ -42,13 +42,13 @@ def connws(pair):
             is_connect = False
             while is_connect == False:
                 try:
-                    sleep(10)
                     ws=websocket.create_connection('wss://ws.zaif.jp:8888/stream?currency_pair='+pair)
                     is_connect = True
                 except Exception as err2:
+                    sleep(10)
                     write_log(err2)
             
-        sleep(1)
+        sleep(3)
         
 def write_log(errob):
         logf = open('log/zaifapi.log', 'a')
