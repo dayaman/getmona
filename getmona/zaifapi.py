@@ -38,8 +38,7 @@ def connws(pair):
         try:
             ws.send('payload')
             price[pair]=json.loads(ws.recv())
-        except Exception as err1:
-            write_log(err1)
+        except:
             is_connect = False
             while is_connect == False:
                 try:
